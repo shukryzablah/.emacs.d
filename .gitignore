@@ -1,0 +1,6 @@
+# This is a whitelist gitignore
+*
+!.gitignore
+!init.el
+!config.org
+!custom.el

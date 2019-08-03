@@ -1,0 +1,33 @@
+* Emacs Init Settings
+** Setup Melpa
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives
+	       (cons "melpa" "https://melpa.org/packages/")
+	       t)
+  (package-initialize)
+#+END_SRC
+** Custom Variables and Faces
+#+BEGIN_SRC emacs-lisp
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
+#+END_SRC
+** Key Bindings
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+#+END_SRC
+** Appearance
+#+BEGIN_SRC emacs-lisp
+(load-theme 'zenburn t)
+(menu-bar-mode 0)
+(scroll-bar-mode 0)
+(tool-bar-mode 0)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+END_SRC
+** Org Variable Defaults
+#+BEGIN_SRC emacs-lisp
+(setq org-hierarchical-todo-statistics nil)
+#+END_SRC
