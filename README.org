@@ -1,0 +1,9 @@
+* Config
+This folder is meant to be cloned into the ~/.emacs.d/ folder in order
+to have the same configuration file. 
+
+- init.el is the main file for emacs configuration. Makes emacs work.
+- config.org is an organized file containing all elisp code. Makes emacs
+  behave similar.
+- custom.el is the file with settings set by Custom
+  programatically. Makes emacs look similar.

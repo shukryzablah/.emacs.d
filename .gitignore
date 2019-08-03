@@ -1,6 +1,7 @@
 # This is a whitelist gitignore
 *
 !.gitignore
+!README.org
 !init.el
 !config.org
 !custom.el
