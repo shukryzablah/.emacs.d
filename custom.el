@@ -12,7 +12,7 @@
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
- '(org-agenda-files (quote ("~/git/meta/inbox.org")))
+ '(org-agenda-files (quote ("~/git/meta/projects.org")))
  '(org-hierarchical-todo-statistics nil)
  '(package-selected-packages
    (quote

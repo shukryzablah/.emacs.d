@@ -14,20 +14,46 @@
 #+END_SRC
 ** Key Bindings
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-s") 'isearch-forward-regexp)
+  (global-set-key (kbd "C-r") 'isearch-backward-regexp)
+  (global-set-key (kbd "C-M-s") 'isearch-forward)
+  (global-set-key (kbd "C-M-r") 'isearch-backward)
+  (global-set-key (kbd "C-x g") 'magit-status)
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-+") 'text-scale-increase)
+  (global-set-key (kbd "C--") 'text-scale-decrease)
 #+END_SRC
-** Appearance
+** General Appearance and Behavior
 #+BEGIN_SRC emacs-lisp
-(load-theme 'zenburn t)
-(menu-bar-mode 0)
-(scroll-bar-mode 0)
-(tool-bar-mode 0)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+  (menu-bar-mode 0)
+  (scroll-bar-mode 0)
+  (tool-bar-mode 0)
+  (column-number-mode 1)
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  (setq echo-keystrokes 0.1)
+  (setq visible-bell t)
+  (setq dired-listing-switches "-alh")
+  (load-theme 'zenburn t)
 #+END_SRC
-** Org Variable Defaults
+
+** Org Mode Customizations
+
 #+BEGIN_SRC emacs-lisp
-(setq org-hierarchical-todo-statistics nil)
+  (add-hook 'org-mode-hook 'auto-fill-mode)
+  (setq org-todo-keywords '((sequence "TODO(t)" "ONGOING(o)" "|" "DONE(d)" "CANCELED(c)"))
+	org-todo-keyword-faces '(
+				; ("TODO" . (:foreground "red" :weight bold))
+				; ("ONGOING" . (:foreground "yellow" :weight bold))
+				; ("DONE" . (:foreground "darkgreen" :weight bold))
+				 ("CANCELED" . (:foreground "gray" :weight bold))
+				 )
+	)
+#+END_SRC
+
+** PDF Tools
+
+#+BEGIN_SRC emacs-lisp
+  (pdf-tools-install)
 #+END_SRC
