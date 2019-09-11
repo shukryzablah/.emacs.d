@@ -1,3 +1,4 @@
+#+PROPERTY: header-args :results silent
 * Emacs Init Settings
 ** Setup Melpa
 #+BEGIN_SRC emacs-lisp
@@ -6,6 +7,19 @@
 	       (cons "melpa" "https://melpa.org/packages/")
 	       t)
   (package-initialize)
+#+END_SRC
+** Use Package
+#+BEGIN_SRC emacs-lisp
+  (setq-default use-package-always-ensure t ; Auto-download package if not exists
+		use-package-always-defer t ; Always defer load package to speed up startup
+		use-package-verbose nil ; Don't report loading details
+		use-package-expand-minimally t  ; make the expanded code as minimal as possible
+		use-package-enable-imenu-support t) ; Let imenu finds use-package definitions
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+  (eval-when-compile
+    (require 'use-package))
 #+END_SRC
 ** Custom Variables and Faces
 #+BEGIN_SRC emacs-lisp
@@ -42,11 +56,9 @@
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'auto-fill-mode)
-  (setq org-todo-keywords '((sequence "TODO(t)" "ONGOING(o)" "|" "DONE(d)" "CANCELED(c)"))
+  (setq org-todo-keywords '((sequence "TODO(t)" "STANDBY(s)" "|" "DONE(d)" "CANCELED(c)"))
 	org-todo-keyword-faces '(
-				; ("TODO" . (:foreground "red" :weight bold))
-				; ("ONGOING" . (:foreground "yellow" :weight bold))
-				; ("DONE" . (:foreground "darkgreen" :weight bold))
+				 ("STANDBY" . (:foreground "gray" :weight bold))
 				 ("CANCELED" . (:foreground "gray" :weight bold))
 				 )
 	)
@@ -57,3 +69,4 @@
 #+BEGIN_SRC emacs-lisp
   (pdf-tools-install)
 #+END_SRC
+some keybindings, bell and keystrokes, org todo faces color

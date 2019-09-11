@@ -13,10 +13,9 @@
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(org-agenda-files (quote ("~/git/meta/projects.org")))
- '(org-hierarchical-todo-statistics nil)
  '(package-selected-packages
    (quote
-    (paredit queue spinner clojure-mode cider pdf-tools magit)))
+    (use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
