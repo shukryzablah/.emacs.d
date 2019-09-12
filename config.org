@@ -62,6 +62,7 @@
 				 ("CANCELED" . (:foreground "gray" :weight bold))
 				 )
 	)
+  (setq org-enforce-todo-dependencies t)
 #+END_SRC
 
 ** PDF Tools
