@@ -8,18 +8,20 @@
 	       t)
   (package-initialize)
 #+END_SRC
-** Use Package
+** Use Package Settings
 #+BEGIN_SRC emacs-lisp
-  (setq-default use-package-always-ensure t ; Auto-download package if not exists
-		use-package-always-defer t ; Always defer load package to speed up startup
-		use-package-verbose nil ; Don't report loading details
-		use-package-expand-minimally t  ; make the expanded code as minimal as possible
-		use-package-enable-imenu-support t) ; Let imenu finds use-package definitions
+  (setq use-package-always-ensure t ; Auto-download package if not exists
+	;use-package-verbose nil ; Don't report loading details
+	;use-package-expand-minimally t  ; make the expanded code as minimal as possible
+	;use-package-enable-imenu-support t ; Let imenu finds use-package definitions
+	use-package-always-defer t) ; Always defer load package to speed up startup
+
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
   (eval-when-compile
     (require 'use-package))
+
 #+END_SRC
 ** Custom Variables and Faces
 #+BEGIN_SRC emacs-lisp
@@ -52,6 +54,15 @@
   (load-theme 'zenburn t)
 #+END_SRC
 
+Put all the backup files and auto-saves into the directory pointed by
+temporary-file-directory.
+
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist
+	`((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+	`((".*" ,temporary-file-directory t)))
+#+END_SRC
 ** Org Mode Customizations
 
 #+BEGIN_SRC emacs-lisp
