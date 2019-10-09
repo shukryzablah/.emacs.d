@@ -63,11 +63,15 @@ temporary-file-directory.
   (setq auto-save-file-name-transforms
 	`((".*" ,temporary-file-directory t)))
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
 ** Org Mode Customizations
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'auto-fill-mode)
-  (setq org-todo-keywords '((sequence "TODO(t)" "STANDBY(s)" "|" "DONE(d)" "CANCELED(c)"))
+  (setq org-todo-keywords '((sequence "TODO(t)" "STANDBY(s@/!)" "|" "DONE(d!)" "CANCELED(c@)"))
 	org-todo-keyword-faces '(
 				 ("STANDBY" . (:foreground "gray" :weight bold))
 				 ("CANCELED" . (:foreground "gray" :weight bold))
@@ -82,3 +86,15 @@ temporary-file-directory.
   (pdf-tools-install)
 #+END_SRC
 some keybindings, bell and keystrokes, org todo faces color
+** Python Tools
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elpy
+    :init
+    (advice-add 'python-mode :before 'elpy-enable))
+#+END_SRC
+** R Tools
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ess-smart-underscore)
+#+END_SRC

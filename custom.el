@@ -9,15 +9,14 @@
    (quote
     ("c82d24bfba431e8104219bfd8e90d47f1ad6b80a504a7900cbee002a8f04392f" default)))
  '(fci-rule-color "#383838")
+ '(inhibit-startup-screen t)
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
- '(org-agenda-files
-   (quote
-    ("~/git/meta/projects.org" "~/git/meta/schedule_student.org")))
+ '(org-agenda-files (quote ("~/git/meta/projects.org")))
  '(package-selected-packages
    (quote
-    (org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
+    (ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
