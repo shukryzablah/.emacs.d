@@ -86,7 +86,12 @@ temporary-file-directory.
 ** PDF Tools
 
 #+BEGIN_SRC emacs-lisp
-  (pdf-tools-install)
+  (use-package pdf-tools
+    :defer 5
+    :init
+    (pdf-tools-install)
+    :config
+    (setq-default pdf-view-display-size 'fit-page))
 #+END_SRC
 ** Python Tools
 
@@ -94,6 +99,11 @@ temporary-file-directory.
   (use-package elpy
     :init
     (advice-add 'python-mode :before 'elpy-enable))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (setq python-shell-interpreter "ipython"
+	python-shell-interpreter-args "-i")
 #+END_SRC
 ** R Tools
 
