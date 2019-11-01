@@ -18,7 +18,7 @@
     ("~/git/meta/general.org" "~/git/meta/work.org" "~/git/meta/thesis.org" "~/git/meta/queueing.org" "~/git/meta/jobsearch.org" "~/git/meta/french.org" "~/git/meta/databases.org" "~/git/meta/dataanalysis.org")))
  '(package-selected-packages
    (quote
-    (which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
+    (keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background "#2B2B2B")

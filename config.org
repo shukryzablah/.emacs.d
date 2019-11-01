@@ -165,3 +165,12 @@ temporary-file-directory.
 	  which-key-idle-delay 1.0)
     :diminish which-key-mode)
 #+END_SRC
+** Command Frequency
+
+#+BEGIN_SRC emacs-lisp
+  (use-package keyfreq
+    :init
+    (keyfreq-mode)
+    :config
+    (keyfreq-autosave-mode))
+#+END_SRC
