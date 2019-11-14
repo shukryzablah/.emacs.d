@@ -34,7 +34,6 @@
   (global-set-key (kbd "C-r") 'isearch-backward-regexp)
   (global-set-key (kbd "C-M-s") 'isearch-forward)
   (global-set-key (kbd "C-M-r") 'isearch-backward)
-  (global-set-key (kbd "C-x g") 'magit-status)
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
@@ -52,7 +51,12 @@
   (setq echo-keystrokes 0.1)
   (setq visible-bell t)
   (setq dired-listing-switches "-alh")
-  (load-theme 'zenburn t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package zenburn-theme
+    :init
+    (load-theme 'zenburn t))
 #+END_SRC
 
 Put all the backup files and auto-saves into the directory pointed by
@@ -81,6 +85,13 @@ temporary-file-directory.
                                  )
         )
   (setq org-enforce-todo-dependencies t)
+#+END_SRC
+
+** Magit
+
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :bind (("C-x g" . magit-status)))
 #+END_SRC
 
 ** PDF Tools
@@ -113,6 +124,14 @@ temporary-file-directory.
 
 #+BEGIN_SRC emacs-lisp
   (setq ess-eval-visibly 'nowait)
+#+END_SRC
+
+** Polymode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package polymode
+    :ensure markdown-mode
+    :ensure poly-R)
 #+END_SRC
 
 ** Dired 
