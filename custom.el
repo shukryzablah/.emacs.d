@@ -13,12 +13,27 @@
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
- '(org-agenda-files
+ '(org-agenda-custom-commands
    (quote
-    ("~/git/meta/general.org" "~/git/meta/work.org" "~/git/meta/thesis.org" "~/git/meta/queueing.org" "~/git/meta/jobsearch.org" "~/git/meta/french.org" "~/git/meta/databases.org" "~/git/meta/dataanalysis.org")))
+    (("d" "TODAY / NEXT tasks / Agenda"
+      ((todo "GOAL" nil)
+       (todo "NEXT" nil)
+       (agenda ""
+	       ((org-agenda-span
+		 (quote day)))))
+      nil
+      ("~git/meta/main.html")))))
+ '(org-agenda-files (quote ("~/git/meta/main.org")))
+ '(org-capture-templates
+   (quote
+    (("m" "Miscellaneous " entry
+      (file+headline "~/git/meta/main.org" "Miscellaneous")
+      ""))))
+ '(org-stuck-projects (quote ("+PROJECT/-DONE" ("NEXT") nil "")))
+ '(org-tags-exclude-from-inheritance (quote ("PROJECT")))
  '(package-selected-packages
    (quote
-    (markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
+    (htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background "#2B2B2B")

@@ -74,17 +74,33 @@ temporary-file-directory.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'auto-fill-mode)
   ;(add-hook 'org-mode-hook 'org-indent-mode)
-  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAITING(w@/!)" "HOLD(h@/!)"  "|" "DONE(d!)" "CANCELED(c@/!)"))
-        org-todo-keyword-faces '(
-                                 ("TODO" . (:foreground "red" :weight bold))
-                                 ("NEXT" . (:foreground "yellow" :weight bold))
-                                 ("DONE" . (:foreground "green" :weight bold))
-                                 ("HOLD" . (:foreground "magenta" :weight bold))
-                                 ("WAITING" . (:foreground "orange" :weight bold))
-                                 ("CANCELED" . (:foreground "gray" :weight bold))
-                                 )
-        )
-  (setq org-enforce-todo-dependencies t)
+  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "GOAL(g!)" "WAITING(w@/!)" "HOLD(h@/!)"  "|" "DONE(d!)" "CANCELED(c@/!)"))
+	org-todo-keyword-faces '(
+				 ("TODO" . (:foreground "red" :weight bold))
+				 ("NEXT" . (:foreground "yellow" :weight bold))
+				 ("DONE" . (:foreground "green" :weight bold))
+				 ("HOLD" . (:foreground "magenta" :weight bold))
+				 ("WAITING" . (:foreground "orange" :weight bold))
+				 ("CANCELED" . (:foreground "gray" :weight bold))
+				 ("GOAL" . (:foreground "goldenrod" :weight bold))
+				 )
+	)
+  ;(setq org-enforce-todo-dependencies t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-custom-commands 
+	'(("d" "TODAY / NEXT tasks / Agenda"
+	   ((todo "GOAL" nil)
+	    (todo "NEXT" nil)
+	    (agenda ""
+		    ((org-agenda-span
+		      (quote day)))))
+	   nil
+	   ("~git/meta/main.html"))))
+
+(setq org-stuck-projects (quote ("+PROJECT/-DONE" ("NEXT") nil "")))
+(setq org-tags-exclude-from-inheritance (quote ("PROJECT")))
 #+END_SRC
 
 ** Magit
@@ -109,12 +125,14 @@ temporary-file-directory.
 #+BEGIN_SRC emacs-lisp
   (use-package elpy
     :init
-    (advice-add 'python-mode :before 'elpy-enable))
+    (advice-add 'python-mode :before 'elpy-enable)
+    (setq python-shell-completion-native-enable nil)
+    )
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (setq python-shell-interpreter "ipython"
-	python-shell-interpreter-args "-i")
+;  (setq python-shell-interpreter "ipython"
+;	python-shell-interpreter-args "-i")
 #+END_SRC
 ** R Tools
 
@@ -192,4 +210,26 @@ temporary-file-directory.
     (keyfreq-mode)
     :config
     (keyfreq-autosave-mode))
+#+END_SRC
+** Custom Utility Functions
+
+#+BEGIN_SRC emacs-lisp
+  (defun unfill-region (beg end)
+    "Unfill the region, joining text paragraphs into a single
+      logical line.  This is useful, e.g., for use with
+      `visual-line-mode'."
+    (interactive "*r")
+    (let ((fill-column (point-max)))
+      (fill-region beg end)))
+#+END_SRC
+** Ecrypting Files
+#+BEGIN_SRC emacs-lisp
+  (use-package epa-file
+    :ensure nil
+    :init (epa-file-enable))
+#+END_SRC
+** Htmlize
+
+#+BEGIN_SRC emacs-lisp
+(use-package htmlize)
 #+END_SRC
