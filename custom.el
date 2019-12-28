@@ -8,6 +8,13 @@
  '(custom-safe-themes
    (quote
     ("c82d24bfba431e8104219bfd8e90d47f1ad6b80a504a7900cbee002a8f04392f" default)))
+ '(ess-roxy-template-alist
+   (quote
+    (("description" . ".. content for \\description{} (no empty lines) ..")
+     ("details" . ".. content for \\details{} ..")
+     ("title" . "")
+     ("param" . "")
+     ("return" . ""))))
  '(fci-rule-color "#383838")
  '(inhibit-startup-screen t)
  '(nrepl-message-colors
@@ -20,22 +27,25 @@
        (todo "NEXT" nil)
        (agenda ""
 	       ((org-agenda-span
-		 (quote day)))))
+		 (quote day))))
+       (stuck "" nil))
       nil
-      ("~git/meta/main.html")))))
+      ("~git/meta/main.html")))) t)
  '(org-agenda-files (quote ("~/git/meta/main.org")))
  '(org-capture-templates
    (quote
     (("m" "Miscellaneous " entry
       (file+headline "~/git/meta/main.org" "Miscellaneous")
       ""))))
- '(org-stuck-projects (quote ("+PROJECT/-DONE" ("NEXT") nil "")))
+ '(org-global-properties
+   (quote
+    (("Effort_ALL" . "0 0:10 0:30 1:00 2:00 3:00 4:00"))))
+ '(org-stuck-projects (quote ("+PROJECT/-DONE" ("NEXT") nil "")) t)
  '(org-tags-exclude-from-inheritance (quote ("PROJECT")))
  '(package-selected-packages
    (quote
     (htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
- '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
    (quote

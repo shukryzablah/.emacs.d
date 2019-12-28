@@ -5,3 +5,5 @@
 !init.el
 !config.org
 !custom.el
+!gnus.el
+!authinfo.gpg
