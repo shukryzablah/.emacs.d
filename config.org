@@ -10,6 +10,8 @@
 #+END_SRC
 ** Use Package Settings
 #+BEGIN_SRC emacs-lisp
+  (eval-when-compile
+    (require 'use-package))
   (setq use-package-always-ensure t ; Auto-download package if not exists
 	;use-package-verbose nil ; Don't report loading details
 	;use-package-expand-minimally t  ; make the expanded code as minimal as possible
@@ -19,9 +21,6 @@
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
-  (eval-when-compile
-    (require 'use-package))
-
 #+END_SRC
 ** Custom Variables and Faces
 #+BEGIN_SRC emacs-lisp
@@ -247,6 +246,10 @@ temporary-file-directory.
 (setq gnus-init-file "~/.emacs.d/gnus.el")
 (setq mail-user-agent 'gnus-user-agent)
 (setq send-mail-function 'smtpmail-send-it)
+#+END_SRC
+** Org-Mime
+#+BEGIN_SRC emacs-lisp
+  (use-package org-mime)
 #+END_SRC
 ** Authinfo
 #+BEGIN_SRC emacs-lisp
