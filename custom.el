@@ -8,6 +8,9 @@
  '(custom-safe-themes
    (quote
     ("c82d24bfba431e8104219bfd8e90d47f1ad6b80a504a7900cbee002a8f04392f" default)))
+ '(erc-modules
+   (quote
+    (autoaway autojoin button completion fill irccontrols keep-place list match menu move-to-prompt netsplit networks noncommands notifications readonly ring services stamp track)))
  '(ess-roxy-template-alist
    (quote
     (("description" . ".. content for \\description{} (no empty lines) ..")
@@ -30,7 +33,7 @@
 		 (quote day))))
        (stuck "" nil))
       nil
-      ("~git/meta/main.html")))))
+      ("~git/meta/main.html")))) t)
  '(org-agenda-files (quote ("~/git/meta/main.org")))
  '(org-capture-templates
    (quote
@@ -40,11 +43,11 @@
  '(org-global-properties
    (quote
     (("Effort_ALL" . "0 0:10 0:30 1:00 2:00 3:00 4:00"))))
- '(org-stuck-projects (quote ("+PROJECT/-DONE" ("NEXT") nil "")))
+ '(org-stuck-projects (quote ("+PROJECT/-DONE" ("NEXT") nil "")) t)
  '(org-tags-exclude-from-inheritance (quote ("PROJECT")))
  '(package-selected-packages
    (quote
-    (org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
+    (doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(send-mail-function (quote smtpmail-send-it))
  '(vc-annotate-background "#2B2B2B")

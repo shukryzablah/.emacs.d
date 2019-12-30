@@ -55,8 +55,16 @@
 
 #+BEGIN_SRC emacs-lisp
   (use-package zenburn-theme
+    :disabled
     :init
     (load-theme 'zenburn t))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-themes
+    :init
+    (load-theme 'doom-one t)
+    (doom-themes-org-config))
 #+END_SRC
 
 Put all the backup files and auto-saves into the directory pointed by
