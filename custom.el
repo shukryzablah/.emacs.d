@@ -8,6 +8,19 @@
  '(custom-safe-themes
    (quote
     ("c82d24bfba431e8104219bfd8e90d47f1ad6b80a504a7900cbee002a8f04392f" default)))
+ '(doom-modeline-bar-width 6)
+ '(doom-modeline-buffer-encoding t)
+ '(doom-modeline-continuous-word-count-modes (quote (markdown-mode org-mode)))
+ '(doom-modeline-enable-word-count t)
+ '(doom-modeline-github t)
+ '(doom-modeline-github-interval 600)
+ '(doom-modeline-gnus t)
+ '(doom-modeline-height 25)
+ '(doom-modeline-icon t)
+ '(doom-modeline-indent-info nil)
+ '(doom-modeline-mu4e nil)
+ '(doom-modeline-unicode-fallback t)
+ '(doom-modeline-vcs-max-length 10)
  '(erc-modules
    (quote
     (autoaway autojoin button completion fill irccontrols keep-place list match menu move-to-prompt netsplit networks noncommands notifications readonly ring services stamp track)))
@@ -47,7 +60,7 @@
  '(org-tags-exclude-from-inheritance (quote ("PROJECT")))
  '(package-selected-packages
    (quote
-    (doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
+    (circe ghub doom-modeline doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(send-mail-function (quote smtpmail-send-it))
  '(vc-annotate-background "#2B2B2B")

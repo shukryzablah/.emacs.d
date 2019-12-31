@@ -1,4 +1,4 @@
-#+PROPERTY: header-args :results silent
++PROPERTY: header-args :results silent
 * Emacs Init Settings
 ** Setup Melpa
 #+BEGIN_SRC emacs-lisp
@@ -49,7 +49,7 @@
   (blink-cursor-mode 0)
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (setq echo-keystrokes 0.1)
-  (setq visible-bell t)
+  ;(setq visible-bell t)
   (setq dired-listing-switches "-alh")
 #+END_SRC
 
@@ -63,8 +63,42 @@
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
     :init
+    (setq doom-themes-enable-bold t  
+	  doom-themes-enable-italic t) 
     (load-theme 'doom-one t)
+    (doom-themes-visual-bell-config)
     (doom-themes-org-config))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-modeline
+    :hook (after-init . doom-modeline-mode)
+    :config
+    (setq doom-modeline-bar-width 6
+	  doom-modeline-buffer-encoding t
+	  doom-modeline-continuous-word-count-modes '(markdown-mode org-mode)
+	  doom-modeline-enable-word-count t
+	  doom-modeline-github t
+	  doom-modeline-github-interval 600
+	  doom-modeline-gnus t
+	  doom-modeline-height 25
+	  doom-modeline-icon t
+	  doom-modeline-indent-info nil
+	  doom-modeline-mu4e nil
+	  doom-modeline-unicode-fallback t
+	  doom-modeline-vcs-max-length 10)
+    )
+
+  (use-package ghub)
+  (use-package async)
+  (use-package circe)
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package all-the-icons)
+  ;run M-x all-the-icons-install-fonts
 #+END_SRC
 
 Put all the backup files and auto-saves into the directory pointed by
