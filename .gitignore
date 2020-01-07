@@ -7,4 +7,6 @@
 !custom.el
 !gnus.el
 !authinfo.gpg
-!snippets/**
+!snippets/
+!snippets/*/
+!snippets/*/*

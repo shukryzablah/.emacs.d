@@ -32,6 +32,7 @@
      ("param" . "")
      ("return" . ""))))
  '(fci-rule-color "#383838")
+ '(gnus-asynchronous t)
  '(inhibit-startup-screen t)
  '(nrepl-message-colors
    (quote
@@ -46,21 +47,33 @@
 		 (quote day))))
        (stuck "" nil))
       nil
-      ("~git/meta/main.html")))) t)
+      ("~git/meta/main.html")))))
  '(org-agenda-files (quote ("~/git/meta/main.org")))
  '(org-capture-templates
    (quote
-    (("m" "Miscellaneous " entry
-      (file+headline "~/git/meta/main.org" "Miscellaneous")
+    (("i" "inbox")
+     ("l" "log")
+     ("le" "Emacs Log" entry
+      (file+olp "~/git/meta/main.org" "Emacs Personalization" "Log")
+      "*** %U ")
+     ("ie" "Emacs Inbox" checkitem
+      (file+olp "~/git/meta/main.org" "Emacs Personalization" "Inbox")
+      "")
+     ("im" "Meta Inbox" checkitem
+      (file+olp "~/git/meta/main.org" "Meta Management" "Inbox")
       ""))))
+ '(org-catch-invisible-edits (quote error))
+ '(org-default-priority 67)
  '(org-global-properties
    (quote
     (("Effort_ALL" . "0 0:10 0:30 1:00 2:00 3:00 4:00"))))
- '(org-stuck-projects (quote ("+PROJECT/-DONE" ("NEXT") nil "")) t)
+ '(org-refile-targets (quote ((nil :maxlevel . 5))))
+ '(org-refile-use-outline-path t)
+ '(org-stuck-projects (quote ("+PROJECT/-DONE" ("NEXT") nil "")))
  '(org-tags-exclude-from-inheritance (quote ("PROJECT")))
  '(package-selected-packages
    (quote
-    (circe ghub doom-modeline doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
+    (yasnippet-snippets circe ghub doom-modeline doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(send-mail-function (quote smtpmail-send-it))
  '(vc-annotate-background "#2B2B2B")

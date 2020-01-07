@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: project
+# key: project
+# --
+* TODO [#C] $0 
+** Inbox [/]
+** Description
+** Habits
+** Tasks
+** Log

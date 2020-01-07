@@ -46,6 +46,7 @@
   (scroll-bar-mode 0)
   (tool-bar-mode 0)
   (column-number-mode 1)
+  (display-battery-mode 1)
   (blink-cursor-mode 0)
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (setq echo-keystrokes 0.1)
@@ -78,9 +79,9 @@
 	  doom-modeline-buffer-encoding t
 	  doom-modeline-continuous-word-count-modes '(markdown-mode org-mode)
 	  doom-modeline-enable-word-count t
-	  doom-modeline-github t
-	  doom-modeline-github-interval 600
+	  doom-modeline-github nil
 	  doom-modeline-gnus t
+	  doom-modeline-gnus-timer 5
 	  doom-modeline-height 25
 	  doom-modeline-icon t
 	  doom-modeline-indent-info nil
@@ -116,7 +117,7 @@ temporary-file-directory.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'auto-fill-mode)
   ;(add-hook 'org-mode-hook 'org-indent-mode)
-  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "GOAL(g!)" "WAITING(w@/!)" "HOLD(h@/!)"  "|" "DONE(d!)" "CANCELED(c@/!)"))
+  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAITING(w@/!)" "HOLD(h@/!)"  "|" "DONE(d!)" "CANCELED(c@/!)"))
 	org-todo-keyword-faces '(
 				 ("TODO" . (:foreground "red" :weight bold))
 				 ("NEXT" . (:foreground "yellow" :weight bold))
@@ -299,4 +300,22 @@ temporary-file-directory.
 		       "~/.authinfo.gpg"
 		       "~/.authinfo"
 		       "~/.netrc"))
+#+END_SRC
+** Yasnippet
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :commands (yas-minor-mode) ; autoload `yasnippet' when `yas-minor-mode' is called
+					  ; using any means: via a hook or by user
+					  ; Feel free to add more commands to this
+					  ; list to suit your needs.
+    :init ; stuff to do before requiring the package
+    (progn
+      (add-hook 'prog-mode-hook #'yas-minor-mode)
+      (add-hook 'org-mode-hook #'yas-minor-mode))
+    :config ; stuff to do after requiring the package
+    (progn
+      (yas-reload-all)))
+
+  (use-package yasnippet-snippets
+    :demand)
 #+END_SRC
