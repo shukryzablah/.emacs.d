@@ -10,22 +10,6 @@
  '(custom-safe-themes
    (quote
     ("e47c0abe03e0484ddadf2ae57d32b0f29f0b2ddfe7ec810bd6d558765d9a6a6c" "c82d24bfba431e8104219bfd8e90d47f1ad6b80a504a7900cbee002a8f04392f" default)))
- '(doom-modeline-bar-width 6)
- '(doom-modeline-buffer-encoding t)
- '(doom-modeline-continuous-word-count-modes (quote (markdown-mode org-mode)))
- '(doom-modeline-enable-word-count t)
- '(doom-modeline-github t)
- '(doom-modeline-github-interval 600)
- '(doom-modeline-gnus t)
- '(doom-modeline-height 25)
- '(doom-modeline-icon t)
- '(doom-modeline-indent-info nil)
- '(doom-modeline-mu4e nil)
- '(doom-modeline-unicode-fallback t)
- '(doom-modeline-vcs-max-length 10)
- '(erc-modules
-   (quote
-    (autoaway autojoin button completion fill irccontrols keep-place list match menu move-to-prompt netsplit networks noncommands notifications readonly ring services stamp track)))
  '(ess-roxy-template-alist
    (quote
     (("description" . ".. content for \\description{} (no empty lines) ..")
@@ -34,8 +18,6 @@
      ("param" . "")
      ("return" . ""))))
  '(fci-rule-color "#383838")
- '(gnus-asynchronous t)
- '(inhibit-startup-screen t)
  '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#51afef"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#98be65"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
@@ -43,46 +25,9 @@
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(objed-cursor-color "#ff6c6b")
- '(org-agenda-custom-commands
-   (quote
-    (("d" "TODAY / NEXT tasks / Agenda"
-      ((todo "GOAL" nil)
-       (todo "NEXT" nil)
-       (agenda ""
-	       ((org-agenda-span
-		 (quote day))))
-       (stuck "" nil))
-      nil
-      ("~git/meta/main.html")))) t)
- '(org-agenda-files (quote ("~/git/meta/main.org")))
- '(org-capture-templates
-   (quote
-    (("i" "inbox")
-     ("l" "log")
-     ("lm" "Meta Log" entry
-      (file+olp "~/git/meta/main.org" "Meta Management" "Log")
-      "*** %U")
-     ("le" "Emacs Log" entry
-      (file+olp "~/git/meta/main.org" "Emacs Personalization" "Log")
-      "*** %U ")
-     ("ie" "Emacs Inbox" checkitem
-      (file+olp "~/git/meta/main.org" "Emacs Personalization" "Inbox")
-      "")
-     ("im" "Meta Inbox" checkitem
-      (file+olp "~/git/meta/main.org" "Meta Management" "Inbox")
-      ""))))
- '(org-catch-invisible-edits (quote error))
- '(org-default-priority 67)
- '(org-global-properties
-   (quote
-    (("Effort_ALL" . "0 0:10 0:30 1:00 2:00 3:00 4:00"))))
- '(org-refile-targets (quote ((nil :maxlevel . 5))))
- '(org-refile-use-outline-path t)
- '(org-stuck-projects (quote ("+PROJECT/-DONE" ("NEXT") nil "")) t)
- '(org-tags-exclude-from-inheritance (quote ("PROJECT")))
  '(package-selected-packages
    (quote
-    (ivy-rich auto-package-update flx counsel ivy vterm yasnippet-snippets circe ghub doom-modeline doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
+    (org-time-budgets ivy-rich auto-package-update flx counsel ivy vterm yasnippet-snippets circe ghub doom-modeline doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(send-mail-function (quote smtpmail-send-it))
  '(vc-annotate-background "#2B2B2B")

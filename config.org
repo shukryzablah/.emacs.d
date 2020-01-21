@@ -15,7 +15,7 @@
   (setq use-package-always-ensure t ; Auto-download package if not exists
 	;use-package-verbose nil ; Don't report loading details
 	;use-package-expand-minimally t  ; make the expanded code as minimal as possible
-	;use-package-enable-imenu-support t ; Let imenu finds use-package definitions
+	use-package-enable-imenu-support t ; Let imenu finds use-package definitions
 	use-package-always-defer t) ; Always defer load package to speed up startup
 
   (unless (package-installed-p 'use-package)
@@ -42,6 +42,7 @@
 #+END_SRC
 ** General Appearance and Behavior
 #+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
   (menu-bar-mode 0)
   (scroll-bar-mode 0)
   (tool-bar-mode 0)
@@ -54,6 +55,17 @@
   (setq dired-listing-switches "-alh")
 #+END_SRC
 
+Put all the backup files and auto-saves into the directory pointed by
+temporary-file-directory.
+
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist
+	`((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+	`((".*" ,temporary-file-directory t)))
+#+END_SRC
+
+*** Theme
 #+BEGIN_SRC emacs-lisp
   (use-package zenburn-theme
     :disabled
@@ -87,8 +99,7 @@
 	  doom-modeline-indent-info nil
 	  doom-modeline-mu4e nil
 	  doom-modeline-unicode-fallback t
-	  doom-modeline-vcs-max-length 10)
-    )
+	  doom-modeline-vcs-max-length 10))
 
   (use-package ghub)
   (use-package async)
@@ -102,21 +113,21 @@
   ;run M-x all-the-icons-install-fonts
 #+END_SRC
 
-Put all the backup files and auto-saves into the directory pointed by
-temporary-file-directory.
-
-#+BEGIN_SRC emacs-lisp
-  (setq backup-directory-alist
-	`((".*" . ,temporary-file-directory)))
-  (setq auto-save-file-name-transforms
-	`((".*" ,temporary-file-directory t)))
-#+END_SRC
-
 ** Org Mode Customizations
-
-#+BEGIN_SRC emacs-lisp
+*** Other
+#+begin_src emacs-lisp
   (add-hook 'org-mode-hook 'auto-fill-mode)
   ;(add-hook 'org-mode-hook 'org-indent-mode)
+  (setq org-stuck-projects '("+PROJECT/-DONE" ("NEXT") nil ""))
+  (setq org-tags-exclude-from-inheritance '("PROJECT"))
+  (setq org-global-properties '(("Effort_ALL" . "0 0:05 0:10 0:15 0:30 1:00 2:00 3:00 4:00")))
+  (setq org-catch-invisible-edits 'error)
+  (setq org-default-priority 67)
+  (setq org-refile-targets '((nil :maxlevel . 5)))
+  (setq org-refile-use-outline-path t)
+#+end_src
+*** Todos
+#+BEGIN_SRC emacs-lisp
   (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAITING(w@/!)" "HOLD(h@/!)"  "|" "DONE(d!)" "CANCELED(c@/!)"))
 	org-todo-keyword-faces '(
 				 ("TODO" . (:foreground "red" :weight bold))
@@ -127,26 +138,34 @@ temporary-file-directory.
 				 ("CANCELED" . (:foreground "gray" :weight bold))
 				 )
 	)
-  ;(setq org-enforce-todo-dependencies t)
+  (setq org-enforce-todo-dependencies t)
 #+END_SRC
-
+*** Agenda 
 #+BEGIN_SRC emacs-lisp
-    (setq org-agenda-custom-commands 
-	  '(("x" "NEXT tasks / Agenda / Stuck"
-	     (
-	      (todo "NEXT" nil)
-	      (agenda ""
-		      ((org-agenda-span
-			(quote day))))
-	      (stuck "" nil))
-	     nil
-	     ("~git/meta/main.html"))))
+  (setq org-agenda-files '("~/git/meta/main.org"))
+  (setq org-agenda-custom-commands 
+	'(("x" "NEXT tasks / Agenda / Stuck"
+	   (
+	    (todo "NEXT" nil)
+	    (agenda ""
+		    ((org-agenda-span
+		      (quote day))))
+	    (stuck "" nil))
+	   nil
+	   ("~git/meta/main.html"))))
 
-  (setq org-stuck-projects (quote ("+PROJECT/-DONE" ("NEXT") nil "")))
-  (setq org-tags-exclude-from-inheritance (quote ("PROJECT")))
-
-  (setq org-global-properties (quote (("Effort_ALL" . "0 0:05 0:10 0:15 0:30 1:00 2:00 3:00 4:00"))))
 #+END_SRC
+*** Capture
+#+begin_src emacs-lisp 
+  (setq org-capture-templates '(("i" "inbox")
+				("l" "log")
+				("ie" "Emacs Inbox" checkitem (file+olp "~/git/meta/main.org" "Emacs Personalization" "Inbox") "")
+				("le" "Emacs Log" entry (file+olp "~/git/meta/main.org" "Emacs Personalization" "Log") "*** %U ")
+				("im" "Meta Inbox" checkitem (file+olp "~/git/meta/main.org" "Meta Management" "Inbox") "")
+				("lm" "Meta Log" entry (file+olp "~/git/meta/main.org" "Meta Management" "Log") "*** %U")
+				("it" "Thesis Inbox" checkitem (file+olp "~/git/meta/main.org" "Computer Science Thesis" "Inbox") "")
+				("lt" "Thesis Log" entry (file+olp "~/git/meta/main.org" "Computer Science Thesis" "Log") "*** %U ")))
+#+end_src
 ** Magit
 
 #+BEGIN_SRC emacs-lisp
@@ -263,11 +282,11 @@ temporary-file-directory.
     (let ((fill-column (point-max)))
       (fill-region beg end)))
 #+END_SRC
-** Ecrypting Files
+** TODO Ecrypting Files
 #+BEGIN_SRC emacs-lisp
-  (use-package epa-file
-    :ensure nil
-    :init (epa-file-enable))
+  ;; (use-package epa-file
+  ;;   :ensure nil
+  ;;   :init (epa-file-enable))
 #+END_SRC
 ** Htmlize
 
@@ -285,6 +304,7 @@ temporary-file-directory.
 (setq gnus-init-file "~/.emacs.d/gnus.el")
 (setq mail-user-agent 'gnus-user-agent)
 (setq send-mail-function 'smtpmail-send-it)
+(setq gnus-asynchronous t)
 #+END_SRC
 ** Org-Mime
 #+BEGIN_SRC emacs-lisp
