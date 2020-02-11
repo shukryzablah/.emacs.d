@@ -35,7 +35,7 @@
   (global-set-key (kbd "C-M-r") 'isearch-backward)
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
-  (global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-c c") 'counsel-org-capture)
   (global-set-key (kbd "C-+") 'text-scale-increase)
   (global-set-key (kbd "C--") 'text-scale-decrease)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -120,11 +120,12 @@ temporary-file-directory.
   ;(add-hook 'org-mode-hook 'org-indent-mode)
   (setq org-stuck-projects '("+PROJECT/-DONE" ("NEXT") nil ""))
   (setq org-tags-exclude-from-inheritance '("PROJECT"))
-  (setq org-global-properties '(("Effort_ALL" . "0 0:05 0:10 0:15 0:30 1:00 2:00 3:00 4:00")))
+  (setq org-global-properties '(("EFFORT_ALL" . "0:05 0:10 0:15 0:30 0:45 1:00 1:15 1:30 1:45 2:00")))
   (setq org-catch-invisible-edits 'error)
   (setq org-default-priority 67)
   (setq org-refile-targets '((nil :maxlevel . 5)))
   (setq org-refile-use-outline-path t)
+  (setq org-columns-default-format "%ITEM %TODO %PRIORITY %DEADLINE %SCHEDULED %EFFORT{:} %CLOCKSUM{:}")
 #+end_src
 *** Todos
 #+BEGIN_SRC emacs-lisp
@@ -142,7 +143,7 @@ temporary-file-directory.
 #+END_SRC
 *** Agenda 
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files '("~/git/meta/main.org"))
+  (setq org-agenda-files '("~/org/all.org"))
   (setq org-agenda-custom-commands 
 	'(("x" "NEXT tasks / Agenda / Stuck"
 	   (
@@ -154,17 +155,56 @@ temporary-file-directory.
 	   nil
 	   ("~git/meta/main.html"))))
 
+  (setq org-agenda-sorting-strategy '((agenda habit-down time-up priority-down effort-down category-keep)
+				      (todo priority-down category-keep)
+				      (tags priority-down category-keep)
+				      (search category-keep)))
+
+  (setq org-agenda-todo-ignore-scheduled nil)
+  (setq org-agenda-todo-ignore-deadlines nil)
+  (setq org-deadline-warning-days 0)
+  (setq org-agenda-skip-scheduled-if-deadline-is-shown 'not-today)
+  (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
 #+END_SRC
 *** Capture
 #+begin_src emacs-lisp 
-  (setq org-capture-templates '(("i" "inbox")
+  (setq org-capture-templates '(; main capture functions
+				("i" "inbox")
 				("l" "log")
-				("ie" "Emacs Inbox" checkitem (file+olp "~/git/meta/main.org" "Emacs Personalization" "Inbox") "")
-				("le" "Emacs Log" entry (file+olp "~/git/meta/main.org" "Emacs Personalization" "Log") "*** %U ")
-				("im" "Meta Inbox" checkitem (file+olp "~/git/meta/main.org" "Meta Management" "Inbox") "")
-				("lm" "Meta Log" entry (file+olp "~/git/meta/main.org" "Meta Management" "Log") "*** %U")
-				("it" "Thesis Inbox" checkitem (file+olp "~/git/meta/main.org" "Computer Science Thesis" "Inbox") "")
-				("lt" "Thesis Log" entry (file+olp "~/git/meta/main.org" "Computer Science Thesis" "Log") "*** %U ")))
+					  ; project
+				("ie" "Emacs Inbox" checkitem (file+olp "~/git/meta/main.org" "Emacs" "Inbox") "")
+				("le" "Emacs Log" entry (file+olp "~/git/meta/main.org" "Emacs" "Log") "*** %U ")
+					  ; project
+				("ij" "Job Search Inbox" checkitem (file+olp "~/git/meta/main.org" "Job Search" "Inbox") "")
+				("lj" "Job Search Log" entry (file+olp "~/git/meta/main.org" "Job Search" "Log") "*** %U ")
+					  ; project
+				("im" "Miscellaneous Inbox" checkitem (file+olp "~/git/meta/main.org" "Miscellaneous" "Inbox") "")
+				("lm" "Miscellaneous Log" entry (file+olp "~/git/meta/main.org" "Miscellaneous" "Log") "*** %U")
+					  ; project
+				("ii" "Interview Practice Inbox" checkitem (file+olp "~/git/meta/main.org" "Interview Practice" "Inbox") "")
+				("li" "Interview Practice Log" entry (file+olp "~/git/meta/main.org" "Interview Practice" "Log") "*** %U")
+					  ; project
+				("ic" "Comps Inbox" checkitem (file+olp "~/git/meta/main.org" "Comps Practice" "Inbox") "")
+				("lc" "Comps Log" entry (file+olp "~/git/meta/main.org" "Comps Practice" "Log") "*** %U")
+					  ; project
+				("ix" "Exercise Inbox" checkitem (file+olp "~/git/meta/main.org" "Exercise" "Inbox") "")
+				("lx" "Exercise Log" entry (file+olp "~/git/meta/main.org" "Exercise" "Log") "*** %U")
+					  ; project
+				("ir" "Reputation Inbox" checkitem (file+olp "~/git/meta/main.org" "Reputation" "Inbox") "")
+				("lr" "Reputation Log" entry (file+olp "~/git/meta/main.org" "Reputation" "Log") "*** %U")
+					  ; project
+				("it" "Thesis Inbox" checkitem (file+olp "~/git/meta/main.org" "Thesis" "Inbox") "")
+				("lt" "Thesis Log" entry (file+olp "~/git/meta/main.org" "Thesis" "Log") "*** %U ")))
+#+end_src
+*** Literate Programming
+#+begin_src emacs-lisp 
+(org-babel-do-load-languages 'org-babel-load-languages '((lisp . t)))
+(setq org-html-doctype "html5")
+(setq org-html-postamble t)
+(setq org-html-postamble-format '(("en" "<p class=\"author\">Author: %a (%e)</p>
+ <p class=\"exporter\">Exporter: %c</p>
+ <p class=\"modified\">Last modified: %C</p>")))
+
 #+end_src
 ** Magit
 
@@ -177,6 +217,8 @@ temporary-file-directory.
 #+begin_src emacs-lisp
   (use-package pdf-tools
     :mode ("\\.pdf\\'" . pdf-view-mode)
+    :bind (:map pdf-view-mode-map
+        ("C-s" . isearch-forward-regexp))
     :config
     (pdf-tools-install)
     (setq-default pdf-view-display-size 'fit-page))
@@ -269,7 +311,15 @@ temporary-file-directory.
     :init
     (keyfreq-mode)
     :config
-    (keyfreq-autosave-mode))
+    (keyfreq-autosave-mode)
+    (setq keyfreq-excluded-commands '(self-insert-command
+				      next-line
+				      previous-line
+				      org-self-insert-command
+				      forward-char
+				      backward-char
+				      delete-backward-char
+				      org-delete-backward-char)))
 #+END_SRC
 ** Custom Utility Functions
 
@@ -388,6 +438,7 @@ temporary-file-directory.
     :config 
     (ivy-mode 1)
     (setq ivy-use-virtual-buffers t)
+    (setq ivy-initial-inputs-alist nil)
     (setq ivy-count-format "(%d/%d) "))
 
   (use-package counsel
@@ -420,3 +471,26 @@ temporary-file-directory.
     (auto-package-update-maybe))
 #+end_src
 
+** Common Lisp (SLIME)
+#+begin_src emacs-lisp
+    (use-package slime
+      :config
+      (load (expand-file-name "~/quicklisp/slime-helper.el"))
+      (setq inferior-lisp-program "/usr/bin/sbcl"
+	    slime-contribs '(slime-fancy slime-quicklisp)))
+#+end_src
+** Latex
+#+begin_src emacs-lisp 
+  (use-package tex-site
+    :ensure auctex
+    :config 
+    (setq TeX-auto-save t)
+    (setq TeX-parse-self t)
+    (setq-default TeX-master nil)
+    (setq TeX-PDF-mode t)
+    (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+    (add-hook 'LaTeX-mode-hook 'pdf-tools-install))
+
+  (use-package reftex)
+#+end_src

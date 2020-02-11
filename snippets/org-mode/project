@@ -2,9 +2,9 @@
 # name: project
 # key: project
 # --
-* TODO [#C] $0 
-** Inbox [/]
-** Description
-** Habits
+* TODO [#${1:$$(yas-choose-value '("C" "B" "A"))}] ${2: <TITLE>}
+Goal: $0
+** Inbox [/] 
+** Events
 ** Tasks
 ** Log
