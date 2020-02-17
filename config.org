@@ -162,7 +162,7 @@ temporary-file-directory.
 
   (setq org-agenda-todo-ignore-scheduled nil)
   (setq org-agenda-todo-ignore-deadlines nil)
-  (setq org-deadline-warning-days 0)
+  (setq org-deadline-warning-days 3)
   (setq org-agenda-skip-scheduled-if-deadline-is-shown 'not-today)
   (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
 #+END_SRC
