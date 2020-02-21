@@ -1,4 +1,4 @@
-[[https://github.com/shukryzablah/.emacs.d/actions][https://github.com/shukryzablah/.emacs.d/workflows/Good%20Emacs%20Startup/badge.svg?branch=master]]
+[[https://github.com/shukryzablah/.emacs.d/actions][https://github.com/shukryzablah/.emacs.d/workflows/Emacs%20Startup/badge.svg]]
 
 * Config
 This folder is meant to be cloned into the ~/.emacs.d/ folder in order
