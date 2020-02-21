@@ -156,7 +156,7 @@ temporary-file-directory.
 	   nil
 	   ("~/org/scratch.html"))))
 
-  (setq org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up priority-down effort-down category-keep)
+  (setq org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up todo-state-down priority-down effort-down category-keep)
 				      (todo deadline-up priority-down effort-down category-keep)
 				      (tags priority-down category-keep)
 				      (search category-keep)))
