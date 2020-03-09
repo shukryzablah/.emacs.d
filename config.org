@@ -200,8 +200,17 @@ temporary-file-directory.
 				("lt" "Thesis Log" entry (file+olp "~/git/meta/main.org" "Thesis" "Log") "*** %U ")))
 #+end_src
 *** Literate Programming
+#+begin_src emacs-lisp
+(use-package jupyter)
+#+end_src
+
 #+begin_src emacs-lisp 
-(org-babel-do-load-languages 'org-babel-load-languages '((lisp . t)))
+(org-babel-do-load-languages 'org-babel-load-languages '((lisp . t)
+							 (python . t)
+							 (jupyter . t)))
+
+(setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
+
 (setq org-html-doctype "html5")
 (setq org-html-postamble t)
 (setq org-html-postamble-format '(("en" "<p class=\"author\">Author: %a (%e)</p>
