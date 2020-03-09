@@ -11,17 +11,20 @@
 #+END_SRC
 ** Use Package Settings
 #+BEGIN_SRC emacs-lisp
+
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
   (eval-when-compile
     (require 'use-package))
+
   (setq use-package-always-ensure t ; Auto-download package if not exists
 	;use-package-verbose nil ; Don't report loading details
 	;use-package-expand-minimally t  ; make the expanded code as minimal as possible
 	use-package-enable-imenu-support t ; Let imenu finds use-package definitions
 	use-package-always-defer t) ; Always defer load package to speed up startup
 
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
 #+END_SRC
 ** Custom Variables and Faces
 #+BEGIN_SRC emacs-lisp
@@ -238,7 +241,7 @@ temporary-file-directory.
     :bind (:map pdf-view-mode-map
         ("C-s" . isearch-forward-regexp))
     :config
-    (pdf-tools-install)
+    (pdf-tools-install :no-query-p)
     (setq-default pdf-view-display-size 'fit-page))
 #+end_src
 ** Python Tools
@@ -499,7 +502,7 @@ temporary-file-directory.
 #+end_src
 ** Latex
 #+begin_src emacs-lisp 
-  (use-package tex-site
+  (use-package tex
     :ensure auctex
     :config 
     (setq TeX-auto-save t)
@@ -514,19 +517,46 @@ temporary-file-directory.
 #+end_src
 ** Midnight Mode
 #+begin_src emacs-lisp 
-  (defun sync-org-with-dropbox ()
-    (interactive)
-    (let ((org-dir-path "~/org/")
-	  (dropbox-dir-path "~/Dropbox (Amherst College)/")
-	  (dropbox-org-dir-path "~/Dropbox (Amherst College)/org/"))
-      (delete-directory dropbox-org-dir-path t)
-      (copy-directory org-dir-path dropbox-dir-path)))
-
   (use-package midnight
     :init 
     (midnight-mode)
     :config
     (midnight-delay-set 'midnight-delay "9:00am")
-    (setq midnight-hook '(clean-buffer-list
-			  sync-org-with-dropbox)))
+    (setq midnight-hook '(clean-buffer-list)))
+#+end_src
+** EXWM
+#+begin_src emacs-lisp 
+  (use-package exwm
+    :config
+    (setq exwm-workspace-number 4)
+    (setq exwm-input-global-keys `(;; 's-r': Reset (to line-mode).
+				   ([?\s-r] . exwm-reset)
+				   ;; 's-w': Switch workspace.
+				   ([?\s-w] . exwm-workspace-switch)
+				   ;; 's-&': Launch application.
+				   ([?\s-&] . (lambda (command)
+						(interactive (list (read-shell-command "$ ")))
+						(start-process-shell-command command nil command)))
+				   ;; 's-N': Switch to certain workspace.
+				   ,@(mapcar (lambda (i)
+					       `(,(kbd (format "s-%d" i)) .
+						 (lambda ()
+						   (interactive)
+						   (exwm-workspace-switch-create ,i))))
+					     (number-sequence 0 9))))
+  
+    (setq exwm-input-simulation-keys
+	  '(([?\C-b] . [left])
+	    ([?\C-f] . [right])
+	    ([?\C-p] . [up])
+	    ([?\C-n] . [down])
+	    ([?\C-a] . [home])
+	    ([?\C-e] . [end])
+	    ([?\M-v] . [prior])
+	    ([?\C-v] . [next])
+	    ([?\C-d] . [delete])
+	    ([?\C-k] . [S-end delete]))))
+
+  ;; Enable EXWM
+  (exwm-enable))
 #+end_src
