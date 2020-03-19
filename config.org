@@ -243,6 +243,8 @@ temporary-file-directory.
     :config
     (pdf-tools-install :no-query-p)
     (setq-default pdf-view-display-size 'fit-page))
+
+  (setq revert-without-query '(".*.pdf"))
 #+end_src
 ** Python Tools
 
@@ -544,7 +546,7 @@ temporary-file-directory.
 						   (interactive)
 						   (exwm-workspace-switch-create ,i))))
 					     (number-sequence 0 9))))
-  
+
     (setq exwm-input-simulation-keys
 	  '(([?\C-b] . [left])
 	    ([?\C-f] . [right])
