@@ -135,7 +135,7 @@ temporary-file-directory.
 #+end_src
 *** Todos
 #+BEGIN_SRC emacs-lisp
-  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELED(c)"))
+  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c)"))
 	org-todo-keyword-faces '(
 				 ("TODO" . (:foreground "red" :weight bold))
 				 ("NEXT" . (:foreground "yellow" :weight bold))
