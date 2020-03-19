@@ -25,7 +25,7 @@
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(objed-cursor-color "#ff6c6b")
- '(org-agenda-files (quote ("~/org/projects.org")))
+ '(org-agenda-files nil)
  '(package-selected-packages
    (quote
     (exwm-config exwm jupyter ox-reveal auctex slime org-time-budgets ivy-rich auto-package-update flx counsel ivy vterm yasnippet-snippets circe ghub doom-modeline doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit)))

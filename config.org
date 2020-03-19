@@ -555,7 +555,7 @@ temporary-file-directory.
 	    ([?\M-v] . [prior])
 	    ([?\C-v] . [next])
 	    ([?\C-d] . [delete])
-	    ([?\C-k] . [S-end delete]))))
+	    ([?\C-k] . [S-end delete])))
 
   ;; Enable EXWM
   (exwm-enable))
