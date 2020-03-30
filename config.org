@@ -117,21 +117,13 @@ temporary-file-directory.
   ;run M-x all-the-icons-install-fonts
 #+END_SRC
 
-** Org Mode Customizations
-*** Other
-#+begin_src emacs-lisp
-  (add-hook 'org-mode-hook 'auto-fill-mode)
-  ;(add-hook 'org-mode-hook 'org-indent-mode)
-  (setq org-stuck-projects '("+project/-DONE" ("NEXT") nil ""))
-  (setq org-tags-exclude-from-inheritance '("project"))
-  (setq org-global-properties '(("EFFORT_ALL" . "0:05 0:10 0:15 0:30 0:45 1:00 1:15 1:30 1:45 2:00")))
-  (setq org-catch-invisible-edits 'error)
-  (setq org-default-priority 67)
-  (setq org-refile-targets '((nil :maxlevel . 5)))
-  (setq org-refile-use-outline-path t)
-  (setq org-columns-default-format "%30ITEM %TODO %PRIORITY %DEADLINE %SCHEDULED %EFFORT{:} %CLOCKSUM{:}")
-  (setq org-archive-location "~/org/archive.org::* %s")
-  (setq org-use-speed-commands t)
+** Org Mode
+*** Habits
+#+begin_src emacs-lisp 
+  (setq org-habit-graph-column 50
+	org-habit-preceding-days 10
+	org-habit-following-days 7
+	org-habit-show-habits-only-for-today t)
 #+end_src
 *** Todos
 #+BEGIN_SRC emacs-lisp
@@ -149,7 +141,7 @@ temporary-file-directory.
 #+END_SRC
 *** Agenda 
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files '("~/org/projects.org"))
+  (setq org-agenda-files '("~/git/org/outline.org"))
   (setq org-agenda-custom-commands 
 	'(("x" "NEXT tasks / Agenda / Stuck"
 	   (
@@ -169,8 +161,10 @@ temporary-file-directory.
   (setq org-agenda-todo-ignore-scheduled nil)
   (setq org-agenda-todo-ignore-deadlines nil)
   (setq org-deadline-warning-days 14)
-  (setq org-agenda-skip-scheduled-if-deadline-is-shown 'not-today)
+  (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
   (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-skip-scheduled-if-done t)
 #+END_SRC
 *** Capture
 #+begin_src emacs-lisp 
@@ -221,11 +215,26 @@ temporary-file-directory.
  <p class=\"modified\">Last modified: %C</p>")))
 
 #+end_src
-** Org Reveal
-#+begin_src emacs-lisp 
-(use-package ox-reveal
-  :config
-  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
+*** Org Reveal
+ #+begin_src emacs-lisp 
+ (use-package ox-reveal
+   :config
+   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
+ #+end_src
+*** Other
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook 'auto-fill-mode)
+  ;(add-hook 'org-mode-hook 'org-indent-mode)
+  (setq org-stuck-projects '("+project/-DONE" ("NEXT") nil ""))
+  (setq org-tags-exclude-from-inheritance '("project"))
+  (setq org-global-properties '(("EFFORT_ALL" . "0:05 0:10 0:15 0:30 0:45 1:00 1:15 1:30 1:45 2:00")))
+  (setq org-catch-invisible-edits 'error)
+  (setq org-default-priority 67)
+  (setq org-refile-targets '((nil :maxlevel . 5)))
+  (setq org-refile-use-outline-path t)
+  (setq org-columns-default-format "%50ITEM %TODO %PRIORITY %DEADLINE %SCHEDULED %EFFORT{:} %CLOCKSUM_T{:} %TAGS")
+  (setq org-archive-location "~/org/archive.org::* %s")
+  (setq org-use-speed-commands t)
 #+end_src
 ** Magit
 
@@ -511,7 +520,8 @@ temporary-file-directory.
     (setq TeX-parse-self t)
     (setq-default TeX-master nil)
     (setq TeX-PDF-mode t)
-    (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
+    (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
+    (setq TeX-source-correlate-start-server t)
     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
     (add-hook 'LaTeX-mode-hook 'pdf-tools-install))
 
