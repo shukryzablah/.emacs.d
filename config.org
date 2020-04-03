@@ -57,6 +57,7 @@
   (setq echo-keystrokes 0.1)
   ;(setq visible-bell t)
   (setq dired-listing-switches "-alh")
+  (setq split-width-threshold 100)
 #+END_SRC
 
 Put all the backup files and auto-saves into the directory pointed by
@@ -202,6 +203,16 @@ temporary-file-directory.
 #+end_src
 
 #+begin_src emacs-lisp 
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted) 
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+(setq org-src-fontify-natively t)
+#+end_src
+
+#+begin_src emacs-lisp 
 (org-babel-do-load-languages 'org-babel-load-languages '((lisp . t)
 							 (python . t)
 							 (jupyter . t)))
@@ -283,7 +294,8 @@ temporary-file-directory.
 #+BEGIN_SRC emacs-lisp
   (use-package polymode
     :ensure markdown-mode
-    :ensure poly-R)
+    :ensure poly-R
+    :ensure poly-org)
 #+END_SRC
 
 ** Dired 
