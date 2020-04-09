@@ -73,13 +73,13 @@ temporary-file-directory.
 *** Theme
 #+BEGIN_SRC emacs-lisp
   (use-package zenburn-theme
-    :disabled
     :init
     (load-theme 'zenburn t))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
+    :disabled
     :init
     (setq doom-themes-enable-bold t  
 	  doom-themes-enable-italic t) 
@@ -90,6 +90,7 @@ temporary-file-directory.
 
 #+BEGIN_SRC emacs-lisp
   (use-package doom-modeline
+    :disabled
     :hook (after-init . doom-modeline-mode)
     :config
     (setq doom-modeline-bar-width 6
