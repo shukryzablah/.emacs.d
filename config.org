@@ -200,7 +200,8 @@ temporary-file-directory.
 #+end_src
 *** Literate Programming
 #+begin_src emacs-lisp
-(use-package jupyter)
+(use-package jupyter
+ :disabled)
 #+end_src
 
 #+begin_src emacs-lisp 
@@ -214,17 +215,18 @@ temporary-file-directory.
 #+end_src
 
 #+begin_src emacs-lisp 
-(org-babel-do-load-languages 'org-babel-load-languages '((lisp . t)
-							 (python . t)
-							 (jupyter . t)))
+  (org-babel-do-load-languages 'org-babel-load-languages '((lisp . t)
+							   (python . t)
+							   ;(jupyter . t)
+							   ))
 
-(setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
+  ;(setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
 
-(setq org-html-doctype "html5")
-(setq org-html-postamble t)
-(setq org-html-postamble-format '(("en" "<p class=\"author\">Author: %a (%e)</p>
- <p class=\"exporter\">Exporter: %c</p>
- <p class=\"modified\">Last modified: %C</p>")))
+  (setq org-html-doctype "html5")
+  (setq org-html-postamble t)
+  (setq org-html-postamble-format '(("en" "<p class=\"author\">Author: %a (%e)</p>
+   <p class=\"exporter\">Exporter: %c</p>
+   <p class=\"modified\">Last modified: %C</p>")))
 
 #+end_src
 *** Org Reveal
@@ -295,8 +297,7 @@ temporary-file-directory.
 #+BEGIN_SRC emacs-lisp
   (use-package polymode
     :ensure markdown-mode
-    :ensure poly-R
-    :ensure poly-org)
+    :ensure poly-R)
 #+END_SRC
 
 ** Dired 
