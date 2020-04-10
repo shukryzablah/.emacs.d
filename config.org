@@ -249,6 +249,7 @@ temporary-file-directory.
   (setq org-columns-default-format "%50ITEM %TODO %PRIORITY %DEADLINE %SCHEDULED %EFFORT{:} %CLOCKSUM_T{:} %TAGS")
   (setq org-archive-location "~/org/archive.org::* %s")
   (setq org-use-speed-commands t)
+  (setq org-highlight-latex-and-related '(latex native script entities))
 #+end_src
 ** Magit
 
