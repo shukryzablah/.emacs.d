@@ -1,12 +1,13 @@
 #+PROPERTY: header-args :results silent
 #+PROPERTY: header-args:emacs-lisp :lexical t
 * Emacs Init Settings
-** Setup Melpa
+** Setup Melpa and Org Elpa
 #+BEGIN_SRC emacs-lisp
   (require 'package)
   (add-to-list 'package-archives
 	       (cons "melpa" "https://melpa.org/packages/")
 	       t)
+  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
   (package-initialize)
 #+END_SRC
 ** Use Package Settings
@@ -208,6 +209,7 @@ temporary-file-directory.
 (setq org-latex-listings 'minted) 
 (setq org-latex-pdf-process
       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"bibtex %b"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 (setq org-src-fontify-natively t)
@@ -216,6 +218,7 @@ temporary-file-directory.
 #+begin_src emacs-lisp 
 (org-babel-do-load-languages 'org-babel-load-languages '((lisp . t)
 							 (python . t)
+							 (latex . t)
 							 (jupyter . t)))
 
 (setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
@@ -248,6 +251,32 @@ temporary-file-directory.
   (setq org-archive-location "~/org/archive.org::* %s")
   (setq org-use-speed-commands t)
   (setq org-highlight-latex-and-related '(latex native script entities))
+
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-classes
+	       '("report2"
+		 "\\documentclass{report}"
+		 ("\\chapter{%s}" . "\\chapter*{%s}")
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
+  (use-package org-plus-contrib
+    :config
+    (require 'ox-extra)
+    (ox-extras-activate '(ignore-headlines)))
+
+  
+#+end_src
+*** Org-ref
+#+begin_src emacs-lisp 
+  (use-package org-ref
+    :config
+    (setq reftex-default-bibliography '("~/git/cubesampling/thesis/thesis.bib"))
+    (setq org-ref-bibliography-notes "~/git/cubesampling/thesis/notes.org"
+      org-ref-default-bibliography '("~/git/cubesampling/thesis/references.bib")
+      org-ref-pdf-directory "~/git/cubesampling/thesis/bibtex-pdfs/")
+    (setq org-ref-completion-library 'org-ref-ivy-cite))
 #+end_src
 ** Magit
 
