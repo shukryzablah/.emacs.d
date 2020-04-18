@@ -27,7 +27,7 @@
    '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(org-pretty-entities t)
  '(package-selected-packages
-   '(org-ref org-plus-contrib ox-extra zenburn-theme poly-org org-clock-csv exwm-config exwm jupyter ox-reveal auctex slime org-time-budgets ivy-rich auto-package-update flx counsel ivy vterm yasnippet-snippets circe ghub doom-modeline doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit))
+   '(helm-system-packages system-packages org-ref org-plus-contrib ox-extra zenburn-theme poly-org org-clock-csv exwm-config exwm jupyter ox-reveal auctex slime org-time-budgets ivy-rich auto-package-update flx counsel ivy vterm yasnippet-snippets circe ghub doom-modeline doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(safe-local-variable-values '((reftex-default-bibliography "thesis.bib")))
  '(send-mail-function 'smtpmail-send-it)

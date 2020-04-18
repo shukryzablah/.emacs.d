@@ -590,6 +590,4 @@ temporary-file-directory.
 ** System Package Manager
 #+begin_src emacs-lisp 
 (use-package system-packages)
-
-(use-package helm-system-packages)
 #+end_src
