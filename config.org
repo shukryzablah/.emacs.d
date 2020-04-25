@@ -4,9 +4,9 @@
 ** Setup Melpa
 #+BEGIN_SRC emacs-lisp
   (require 'package)
-  (add-to-list 'package-archives
-	       (cons "melpa" "https://melpa.org/packages/")
-	       t)
+  (add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+
   (package-initialize)
 #+END_SRC
 ** Use Package Settings
@@ -250,6 +250,11 @@ temporary-file-directory.
   (setq org-archive-location "~/git/org/archive.org::* %s")
   (setq org-use-speed-commands t)
   (setq org-highlight-latex-and-related '(latex native script entities))
+#+end_src
+*** Contribs
+#+begin_src emacs-lisp 
+  (use-package org-plus-contrib
+    :after org)
 #+end_src
 ** Magit
 
