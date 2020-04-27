@@ -251,11 +251,6 @@ temporary-file-directory.
   (setq org-use-speed-commands t)
   (setq org-highlight-latex-and-related '(latex native script entities))
 #+end_src
-*** Contribs
-#+begin_src emacs-lisp 
-  (use-package org-plus-contrib
-    :after org)
-#+end_src
 ** Magit
 
 #+BEGIN_SRC emacs-lisp
