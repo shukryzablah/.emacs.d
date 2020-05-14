@@ -155,7 +155,7 @@ temporary-file-directory.
 	   nil
 	   ("~/org/scratch.html"))))
 
-  (setq org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up todo-state-down priority-down effort-down category-keep)
+  (setq org-agenda-sorting-strategy '((agenda time-up habit-up deadline-up todo-state-down priority-down effort-down category-keep)
 				      (todo deadline-up priority-down effort-down category-keep)
 				      (tags priority-down category-keep)
 				      (search category-keep)))
@@ -205,19 +205,24 @@ temporary-file-directory.
 #+end_src
 
 #+begin_src emacs-lisp 
-(add-to-list 'org-latex-packages-alist '("" "minted"))
-(setq org-latex-listings 'minted) 
-(setq org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-(setq org-src-fontify-natively t)
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted) 
+  (setq org-latex-pdf-process
+	'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	  "bibtex %b"
+	  "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	  "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  (setq org-src-fontify-natively t)
 #+end_src
 
 #+begin_src emacs-lisp 
   (org-babel-do-load-languages 'org-babel-load-languages '((lisp . t)
 							   (python . t)
-							   ;(jupyter . t)
+							   (shell . t)
+							   (scheme  . t)
+							   (R . t)
+							   (C . t)
+	;						   (julia . t)
 							   ))
 
   ;(setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
@@ -250,11 +255,34 @@ temporary-file-directory.
   (setq org-archive-location "~/git/org/archive.org::* %s")
   (setq org-use-speed-commands t)
   (setq org-highlight-latex-and-related '(latex native script entities))
+  ;; (add-to-list 'org-latex-classes  '("report2" "\\documentclass[11pt]{report}"
+  ;; 				  ("\\chapter{%s}" . "\\chapter*{%s}")
+  ;; 				  ("\\section{%s}" . "\\section*{%s}")
+  ;; 				  ("\\subsection{%s}" . "\\subsection*{%s}")
+  ;; 				  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+  ;; (require '
+  ; ox-extra)
+  ;(ox-extras-activate '(ignore-headlines))
+
 #+end_src
-*** Contribs
-#+begin_src emacs-lisp 
-  (use-package org-plus-contrib
-    :after org)
+*** Org Clock CSV
+#+begin_src emacs-lisp
+(use-package org-clock-csv)
+#+end_src
+*** Hugo 
+#+begin_src emacs-lisp
+  (use-package ox-hugo
+    :config
+    (defun my/org-get-title ()
+    (nth 4 (org-heading-components)))
+
+    (defun my/org-hugo-set-export-file-name ()
+      (interactive)
+      (org-set-property "EXPORT_FILE_NAME" (org-hugo-slug (my/org-get-title))))
+
+    (defun my/org-hugo-set-all-export-file-name ()
+      (interactive)
+      (org-map-entries #'my/org-hugo-set-export-file-name "LEVEL=1")))
 #+end_src
 ** Magit
 
