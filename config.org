@@ -4,9 +4,9 @@
 ** Setup Melpa
 #+BEGIN_SRC emacs-lisp
   (require 'package)
-  (add-to-list 'package-archives
-	       (cons "melpa" "https://melpa.org/packages/")
-	       t)
+  (add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives (cons "org" "https://orgmode.org/elpa/") t)
+
   (package-initialize)
 #+END_SRC
 ** Use Package Settings
@@ -73,13 +73,13 @@ temporary-file-directory.
 *** Theme
 #+BEGIN_SRC emacs-lisp
   (use-package zenburn-theme
-    :disabled
     :init
     (load-theme 'zenburn t))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
+    :disabled
     :init
     (setq doom-themes-enable-bold t  
 	  doom-themes-enable-italic t) 
@@ -90,6 +90,7 @@ temporary-file-directory.
 
 #+BEGIN_SRC emacs-lisp
   (use-package doom-modeline
+    :disabled
     :hook (after-init . doom-modeline-mode)
     :config
     (setq doom-modeline-bar-width 6
@@ -121,7 +122,7 @@ temporary-file-directory.
 ** Org Mode
 *** Habits
 #+begin_src emacs-lisp 
-  (setq org-habit-graph-column 50
+  (setq org-habit-graph-column 55
 	org-habit-preceding-days 10
 	org-habit-following-days 7
 	org-habit-show-habits-only-for-today t)
@@ -154,7 +155,7 @@ temporary-file-directory.
 	   nil
 	   ("~/org/scratch.html"))))
 
-  (setq org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up todo-state-down priority-down effort-down category-keep)
+  (setq org-agenda-sorting-strategy '((agenda time-up habit-up deadline-up todo-state-down priority-down effort-down category-keep)
 				      (todo deadline-up priority-down effort-down category-keep)
 				      (tags priority-down category-keep)
 				      (search category-keep)))
@@ -199,31 +200,37 @@ temporary-file-directory.
 #+end_src
 *** Literate Programming
 #+begin_src emacs-lisp
-(use-package jupyter)
+(use-package jupyter
+ :disabled)
 #+end_src
 
 #+begin_src emacs-lisp 
-(add-to-list 'org-latex-packages-alist '("" "minted"))
-(setq org-latex-listings 'minted) 
-(setq org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-(setq org-src-fontify-natively t)
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted) 
+  (setq org-latex-pdf-process
+	'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	  "bibtex %b"
+	  "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	  "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  (setq org-src-fontify-natively t)
 #+end_src
 
 #+begin_src emacs-lisp 
-(org-babel-do-load-languages 'org-babel-load-languages '((lisp . t)
-							 (python . t)
-							 (jupyter . t)))
+   (setq geiser-active-implementations '(guile))
+   
+  (org-babel-do-load-languages 'org-babel-load-languages '((lisp . t)
+							   (python . t)
+							   (shell . t)
+							   (scheme  . t)
+							   (R . t)
+							   (C . t)
+							   ))
 
-(setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
-
-(setq org-html-doctype "html5")
-(setq org-html-postamble t)
-(setq org-html-postamble-format '(("en" "<p class=\"author\">Author: %a (%e)</p>
- <p class=\"exporter\">Exporter: %c</p>
- <p class=\"modified\">Last modified: %C</p>")))
+  (setq org-html-doctype "html5")
+  (setq org-html-postamble t)
+  (setq org-html-postamble-format '(("en" "<p class=\"author\">Author: %a (%e)</p>
+   <p class=\"exporter\">Exporter: %c</p>
+   <p class=\"modified\">Last modified: %C</p>")))
 
 #+end_src
 *** Org Reveal
@@ -244,8 +251,37 @@ temporary-file-directory.
   (setq org-refile-targets '((nil :maxlevel . 5)))
   (setq org-refile-use-outline-path t)
   (setq org-columns-default-format "%50ITEM %TODO %PRIORITY %DEADLINE %SCHEDULED %EFFORT{:} %CLOCKSUM_T{:} %TAGS")
-  (setq org-archive-location "~/org/archive.org::* %s")
+  (setq org-archive-location "~/git/org/archive.org::* %s")
   (setq org-use-speed-commands t)
+  (setq org-highlight-latex-and-related '(latex native script entities))
+  ;; (add-to-list 'org-latex-classes  '("report2" "\\documentclass[11pt]{report}"
+  ;; 				  ("\\chapter{%s}" . "\\chapter*{%s}")
+  ;; 				  ("\\section{%s}" . "\\section*{%s}")
+  ;; 				  ("\\subsection{%s}" . "\\subsection*{%s}")
+  ;; 				  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+  ;; (require '
+  ; ox-extra)
+  ;(ox-extras-activate '(ignore-headlines))
+
+#+end_src
+*** Org Clock CSV
+#+begin_src emacs-lisp
+(use-package org-clock-csv)
+#+end_src
+*** Hugo 
+#+begin_src emacs-lisp
+  (use-package ox-hugo
+    :config
+    (defun my/org-get-title ()
+    (nth 4 (org-heading-components)))
+
+    (defun my/org-hugo-set-export-file-name ()
+      (interactive)
+      (org-set-property "EXPORT_FILE_NAME" (org-hugo-slug (my/org-get-title))))
+
+    (defun my/org-hugo-set-all-export-file-name ()
+      (interactive)
+      (org-map-entries #'my/org-hugo-set-export-file-name "LEVEL=1")))
 #+end_src
 ** Magit
 
@@ -294,49 +330,10 @@ temporary-file-directory.
 #+BEGIN_SRC emacs-lisp
   (use-package polymode
     :ensure markdown-mode
-    :ensure poly-R
-    :ensure poly-org)
+    :ensure poly-R)
 #+END_SRC
 
-** Dired 
-#+BEGIN_SRC emacs-lisp 
-	(use-package dired-git-info
-		:bind (:map dired-mode-map
-								(")" . dired-git-info-mode)))
-
-	;;(use-package diredfl
-	;;   :after dired
-	;;   :hook ((after-init . diredfl-global-mode)))
-
-	;; (use-package dired-rainbow
-	;;   :after dired
-	;;   :commands dired-rainbow-define dired-rainbow-define-chmod
-	;;   :config
-	;;   (progn
-	;;   (dired-rainbow-define-chmod directory "#6cb2eb" "d.*")
-	;;   (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml" "mustache" "xhtml"))
-	;;   (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn" "rss" "yaml" "yml" "rdata"))
-	;;   (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf" "djvu" "epub" "odp" "ppt" "pptx"))
-	;;   (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod" "rst" "tex" "textfile" "txt"))
-	;;   (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc"))
-	;;   (dired-rainbow-define media "#de751f" ("mp3" "mp4" "MP3" "MP4" "avi" "mpeg" "mpg" "flv" "ogg" "mov" "mid" "midi" "wav" "aiff" "flac"))
-	;;   (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd" "eps" "svg"))
-	;;   (dired-rainbow-define log "#c17d11" ("log"))
-	;;   (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim"))
-	;;   (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql" "sql" "r" "clj" "cljs" "scala" "js"))
-	;;   (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx" "m" "cc" "cs" "cp" "cpp" "go" "f" "for" "ftn" "f90" "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java"))
-	;;   (dired-rainbow-define executable "#8cc4ff" ("exe" "msi"))
-	;;   (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar" "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar"))
-	;;   (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf" "vpk" "bsp"))
-	;;   (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12" "pem"))
-	;;   (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf"))
-	;;   (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk" "bak"))
-	;;   (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
-	;;   (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*")
-	;;   )) 
-#+END_SRC
 ** Which Key
-
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :init
@@ -349,7 +346,6 @@ temporary-file-directory.
     :diminish which-key-mode)
 #+END_SRC
 ** Command Frequency
-
 #+BEGIN_SRC emacs-lisp
   (use-package keyfreq
     :init
@@ -366,7 +362,6 @@ temporary-file-directory.
 				      org-delete-backward-char)))
 #+END_SRC
 ** Custom Utility Functions
-
 #+BEGIN_SRC emacs-lisp
   (defun unfill-region (beg end)
     "Unfill the region, joining text paragraphs into a single
@@ -383,12 +378,10 @@ temporary-file-directory.
   ;;   :init (epa-file-enable))
 #+END_SRC
 ** Htmlize
-
 #+BEGIN_SRC emacs-lisp
 (use-package htmlize)
 #+END_SRC
 ** Restclient
-
 #+BEGIN_SRC emacs-lisp
   (use-package restclient
     :mode ("\\.http\\'" . restclient-mode))
@@ -505,16 +498,6 @@ temporary-file-directory.
     :config
     (ivy-rich-mode 1))
 #+end_src
-** Auto Package Update
-#+begin_src emacs-lisp
-  (use-package auto-package-update
-    :config
-    (setq auto-package-update-delete-old-versions t)
-    (setq auto-package-update-hide-results t)
-    (setq auto-package-update-interval 10)
-    (auto-package-update-maybe))
-#+end_src
-
 ** Common Lisp (SLIME)
 #+begin_src emacs-lisp
     (use-package slime
@@ -538,15 +521,6 @@ temporary-file-directory.
     (add-hook 'LaTeX-mode-hook 'pdf-tools-install))
 
   (use-package reftex)
-#+end_src
-** Midnight Mode
-#+begin_src emacs-lisp 
-  (use-package midnight
-    :init 
-    (midnight-mode)
-    :config
-    (midnight-delay-set 'midnight-delay "9:00am")
-    (setq midnight-hook '(clean-buffer-list)))
 #+end_src
 ** EXWM
 #+begin_src emacs-lisp 

@@ -16,6 +16,7 @@
      ("param" . "")
      ("return" . "")))
  '(fci-rule-color "#383838")
+ '(geiser-default-implementation 'mit)
  '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#51afef"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#98be65"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
@@ -23,10 +24,13 @@
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(objed-cursor-color "#ff6c6b")
  '(org-agenda-files '("~/git/org/outline.org"))
+ '(org-checkbox-hierarchical-statistics nil)
+ '(org-hierarchical-todo-statistics nil)
  '(org-modules
-   '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
+   '(org-depend ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
+ '(org-pretty-entities t)
  '(package-selected-packages
-   '(poly-org org-clock-csv exwm-config exwm jupyter ox-reveal auctex slime org-time-budgets ivy-rich auto-package-update flx counsel ivy vterm yasnippet-snippets circe ghub doom-modeline doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit))
+   '(geiser toml-mode ox-hugo all-the-icons ox-pandoc helm-system-packages system-packages org-ref org-plus-contrib ox-extra zenburn-theme org-clock-csv exwm-config exwm jupyter ox-reveal auctex slime org-time-budgets ivy-rich auto-package-update flx counsel ivy vterm yasnippet-snippets circe ghub doom-modeline doom-themes org-mime htmlize epa-file markdown-mode keyfreq which-key dired-rainbow dired-git-info diredfl dired ess-smart-underscore elpy org-gcal use-package restclient ess poly-R paredit queue spinner clojure-mode cider pdf-tools magit))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(safe-local-variable-values '((reftex-default-bibliography "thesis.bib")))
  '(send-mail-function 'smtpmail-send-it)
