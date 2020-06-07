@@ -143,7 +143,7 @@ temporary-file-directory.
 #+END_SRC
 *** Agenda 
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files '("~/git/org/outline.org"))
+  (setq org-agenda-files '("~/git/org/projects/"))
   (setq org-agenda-custom-commands 
 	'(("x" "NEXT tasks / Agenda / Stuck"
 	   (
