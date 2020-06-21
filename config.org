@@ -506,6 +506,18 @@ temporary-file-directory.
       (setq inferior-lisp-program "/usr/bin/sbcl"
 	    slime-contribs '(slime-fancy slime-quicklisp)))
 #+end_src
+** Paredit
+#+begin_src emacs-lisp 
+  (use-package paredit
+    :config
+    (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-(setq )tructural editing of Lisp code." t)
+    (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+    (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+    (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+    (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+    (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+    (add-hook 'scheme-mode-hook           #'enable-paredit-mode))
+#+end_src
 ** Latex
 #+begin_src emacs-lisp 
   (use-package tex
