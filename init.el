@@ -47,9 +47,8 @@
 
 (defmacro with-gc-cons-threshold (bytes &rest body)
   "Run a body of code with new gc-cons-threshold defined in bytes."
-  `(let ((old-gc-cons-threshold ,gc-cons-threshold)
-	 (gc-cons-threshold ,bytes))
-       ,@body))
+  `(let ((gc-cons-threshold ,bytes))
+     ,@body))
 
 (defun main ()
   "Entry point for init file."
