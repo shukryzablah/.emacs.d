@@ -18,7 +18,8 @@
 
 (defun setup-custom-file ()
   "Set file path used for Easy Customization."
-  (setq custom-file "~/.emacs.d/custom.el"))
+  (setq custom-file "~/.emacs.d/custom.el")
+  (load custom-file))
 
 (defun setup-vscode-theme ()
   "Install and load vscode-dark-plus-theme."
@@ -53,10 +54,10 @@
 (defun main ()
   "Entry point for init file."
   (with-gc-cons-threshold (* 50 1000 1000)
+   (setup-custom-file) 
    (setup-melpa) 
    ;(package-refresh-contents) ; TODO: too slow, but how to deal with outdated cache or when bootstrapping?
    (mapc #'package-install-if-not-already '(use-package magit))
-   (setup-custom-file) 
    (setup-theme "vscode")
    (global-set-key (kbd "C-x g") 'magit-status)))
 
