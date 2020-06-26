@@ -1,12 +1,2 @@
-# This is a whitelist gitignore
-*
-!.gitignore
-!README.org
-!init.el
-!config.org
-!custom.el
-!gnus.el
-!authinfo.gpg
-!snippets/
-!snippets/*/
-!snippets/*/*
+/elpa/
+/transient/
