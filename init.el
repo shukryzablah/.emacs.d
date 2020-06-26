@@ -2,6 +2,9 @@
 
 (require 'package)
 
+(defconst global-default-gc-cons-threshold 800000
+  "Default threshold (in bytes) between garbage collection.")
+
 (defun setup-melpa ()
   "Add melpa to repositories and call package-initialize afterwards."
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -29,7 +32,7 @@
 
 (defun disable-all-themes ()
   "Disable all enabled themes."
-  (mapc #'(disable-theme) 'custom-enabled-themes))
+  (mapc #'disable-theme custom-enabled-themes))
 
 (defun change-theme (theme-name)
   "Disable themes and setup new theme."
@@ -42,13 +45,20 @@
 	((equal theme-name "zenburn") (setup-zenburn-theme))
 	(t (warn "Theme is not supported: %s" theme-name))))
 
+(defmacro with-gc-cons-threshold (bytes &rest body)
+  "Run a body of code with new gc-cons-threshold defined in bytes."
+  `(let ((old-gc-cons-threshold ,gc-cons-threshold)
+	 (gc-cons-threshold ,bytes))
+       ,@body))
+
 (defun main ()
   "Entry point for init file."
-  (setup-melpa) 
-  ;(package-refresh-contents) ; TODO: too slow, but how to deal with outdated cache or when bootstrapping?
-  (mapc #'package-install-if-not-already '(use-package magit))
-  (setup-custom-file) 
-  (setup-theme "vscode")
-  (global-set-key (kbd "C-x g") 'magit-status))
+  (with-gc-cons-threshold (* 50 1000 1000)
+   (setup-melpa) 
+   ;(package-refresh-contents) ; TODO: too slow, but how to deal with outdated cache or when bootstrapping?
+   (mapc #'package-install-if-not-already '(use-package magit))
+   (setup-custom-file) 
+   (setup-theme "vscode")
+   (global-set-key (kbd "C-x g") 'magit-status)))
 
 (main)
