@@ -37,6 +37,7 @@
 
 (defun change-theme (theme-name)
   "Disable themes and setup new theme."
+  (interactive "sTheme: ")
   (disable-all-themes)
   (setup-theme theme-name))
 
@@ -50,6 +51,11 @@
   "Run a body of code with new gc-cons-threshold defined in bytes."
   `(let ((gc-cons-threshold ,bytes))
      ,@body))
+
+(defun jump-to-init-file ()
+  "Open current user's init file."
+  (interactive)
+  (find-file user-init-file))
 
 (defun main ()
   "Entry point for init file."
