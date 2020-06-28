@@ -8,7 +8,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (zenburn-theme vscode-dark-plus-theme use-package magit)))
+    (slime zenburn-theme vscode-dark-plus-theme use-package magit)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
