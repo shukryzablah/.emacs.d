@@ -28,7 +28,7 @@
 #+END_SRC
 ** Custom Variables and Faces
 #+BEGIN_SRC emacs-lisp
-(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 #+END_SRC
 ** Key Bindings
